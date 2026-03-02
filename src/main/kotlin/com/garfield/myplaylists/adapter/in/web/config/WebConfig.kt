@@ -9,14 +9,21 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver
 
 @Configuration
 class WebConfig(
-    @Value("\${app.cors.allowed-origin:http://localhost:3000}")
-    private val allowedOrigin: String,
+    @Value("\${app.cors.allowed-origins:}")
+    private val allowedOriginsRaw: String,
     private val apiLoggingInterceptor: ApiLoggingInterceptor,
     private val sessionMemberCodeArgumentResolver: SessionMemberCodeArgumentResolver,
 ) : WebMvcConfigurer {
+    private val allowedOrigins: Array<String>
+        get() = allowedOriginsRaw
+            .split(",")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+            .toTypedArray()
+
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/api/**")
-            .allowedOrigins(allowedOrigin)
+            .allowedOriginPatterns(*allowedOrigins)
             .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
             .allowCredentials(true)
             .maxAge(3600)
