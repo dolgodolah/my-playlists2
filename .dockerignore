@@ -1,0 +1,12 @@
+.git
+.gitignore
+.gradle
+.idea
+.kotlin
+
+build
+frontend/node_modules
+frontend/.next
+
+README.md
+HELP.md
