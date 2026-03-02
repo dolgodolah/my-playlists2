@@ -377,6 +377,19 @@ export default function PlaylistDetailPage() {
 
   const isScrollableSongs = songs.length >= 10 || nextSongId !== null;
   const playingSong = songs.find((song) => song.songId === playingSongId) ?? null;
+  const playingSongThumbnailUrl = playingSong ? `https://i.ytimg.com/vi/${playingSong.videoId}/maxresdefault.jpg` : null;
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (playingSongThumbnailUrl) {
+      root.style.setProperty("--bg-image-url", `url("${playingSongThumbnailUrl}")`);
+      return () => {
+        root.style.setProperty("--bg-image-url", 'url("/images/background.jpeg")');
+      };
+    }
+
+    root.style.setProperty("--bg-image-url", 'url("/images/background.jpeg")');
+  }, [playingSongThumbnailUrl]);
 
   return (
     <main className="page-shell">

@@ -1,7 +1,8 @@
 :root {
   color-scheme: light;
-  --bg-overlay-top: rgba(6, 18, 36, 0.34);
-  --bg-overlay-bottom: rgba(18, 34, 62, 0.46);
+  --bg-image-url: url("/images/background.jpeg");
+  --bg-overlay-top: rgba(6, 18, 36, 0.22);
+  --bg-overlay-bottom: rgba(18, 34, 62, 0.32);
   --card-bg: rgba(247, 251, 255, 0.46);
   --text-main: #13233f;
   --text-sub: #3c4f71;
@@ -35,11 +36,11 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("/images/background.jpeg");
+  background-image: var(--bg-image-url);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(8px) brightness(0.62);
+  filter: blur(4px) brightness(0.78);
   transform: scale(1.04);
   z-index: -2;
 }
